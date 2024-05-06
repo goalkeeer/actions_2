@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    inputs:
+      message:
+        required: false
+        type: string
     secrets:
       TEST:
         required: true
@@ -13,4 +17,10 @@ jobs:
           echo ${{ github.event.head_commit.message }}
           echo ${{ secrets.TEST }}
           echo ${{ vars.TEST_VAR }}
+          echo ${{ github.repository }}
+          echo ${{ github.ref_name }}
+          echo ${{ inputs.message }}
+          echo ${{ github.actor }}
+          echo ${{ github.run_id }}
           echo ${{ github.event_name }}
+          echo ${{ toJson(needs) }}
