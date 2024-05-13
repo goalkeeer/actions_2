@@ -25,6 +25,11 @@ jobs:
           URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
           THREAD_ID="${{ vars.DEV_THREAD_ID || '' }}"
           
+          echo $URL
+          echo $THREAD_ID
+          echo ${{ vars.TELEGRAM_TO }}
+          echo ${{ inputs.message }}
+          
           curl -s -X POST "$URL"\
           --data "chat_id=${{ vars.TELEGRAM_TO }}"\
           --data "message_thread_id=$THREAD_ID" \
