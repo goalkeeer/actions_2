@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          URL="https://api.telegram.org/bot${{ vars.TELEGRAM_TOKEN }}/sendMessage"
-          MESSAGE=${{ inputs.message }}
+          URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+#          MESSAGE=${{ inputs.message }}
           THREAD_ID="${{ vars.DEV_THREAD_ID || '' }}"
           
           echo $URL
@@ -32,8 +32,8 @@ jobs:
 
           curl -s -X POST "$URL"\
             --data "chat_id=${{ vars.TELEGRAM_TO }}"\
-            --data "text=$MESSAGE"\
+            --data "message_thread_id=$THREAD_ID" \
+            --data "text=${{ inputs.message }}\
             --data "disable_web_page_preview=${{ inputs.disable_preview }}"\
             --data parse_mode=${{ inputs.parse_mode }}
 
-#          --data "message_thread_id=$THREAD_ID" \
