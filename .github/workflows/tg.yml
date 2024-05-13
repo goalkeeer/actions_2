@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+    inputs:
+      message:
+        required: true
+        type: string
+      parse_mode:
+        required: false
+        type: string
+        default: HTML
+      disable_preview:
+        required: false
+        type: number
+        default: 1
+    secrets:
+      TELEGRAM_TOKEN:
+        required: true
+
+jobs:
+  reuse:
+    name: send tg message
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+          THREAD_ID="${{ vars.DEV_THREAD_ID || '' }}"
+          
+          curl -s -X POST "$URL"\
+          --data "chat_id=${{ vars.TELEGRAM_TO }}"\
+          --data "message_thread_id=$THREAD_ID" \
+          --data "text=${{ inputs.message }}"\
+          --data "disable_web_page_preview=${{ inputs.disable_preview }}"\
+          --data parse_mode=${{ inputs.parse_mode }}
