@@ -29,6 +29,6 @@ jobs:
           curl -s -X POST "$URL"\
             --data "chat_id=${{ vars.TELEGRAM_TO }}"\
             --data "message_thread_id=$THREAD_ID" \
-            --data "text=$MESSAGE\
+            --data "text=$MESSAGE"\
             --data "disable_web_page_preview=${{ inputs.disable_preview }}"\
             --data parse_mode=${{ inputs.parse_mode }}
