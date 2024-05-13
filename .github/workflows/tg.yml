@@ -23,7 +23,7 @@ jobs:
     steps:
       - run: |
           URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
-          MESSAGE="${{ inputs.message }}"
+          MESSAGE=${{ inputs.message }}
           THREAD_ID="${{ vars.DEV_THREAD_ID || '' }}"
           
           echo $URL
