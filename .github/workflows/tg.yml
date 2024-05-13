@@ -23,7 +23,6 @@ jobs:
     steps:
       - run: |
           URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
-#          MESSAGE=${{ inputs.message }}
           THREAD_ID="${{ vars.DEV_THREAD_ID || '' }}"
           
           echo $URL
@@ -37,3 +36,4 @@ jobs:
             --data "disable_web_page_preview=${{ inputs.disable_preview }}"\
             --data parse_mode=${{ inputs.parse_mode }}
 
+#          MESSAGE=${{ inputs.message }}
