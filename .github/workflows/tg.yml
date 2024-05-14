@@ -12,6 +12,12 @@ on:
         required: false
         type: number
         default: 1
+      chat_id:
+        required: false
+        type: string
+      thread_id:
+        required: false
+        type: string
     secrets:
       TELEGRAM_TOKEN:
         required: true
@@ -24,10 +30,11 @@ jobs:
       - run: |
           URL="https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
           MESSAGE=${{ inputs.message }}
-          THREAD_ID="${{ vars.DEV_THREAD_ID || '' }}"
+          CHAT_ID=${{ inputs.chat_id || vars.TELEGRAM_TO || '' }}
+          THREAD_ID=${{ inputs.thread_id || vars.DEV_THREAD_ID || '' }}
 
           curl -s -X POST "$URL"\
-            --data "chat_id=${{ vars.TELEGRAM_TO }}"\
+            --data "chat_id=$CHAT_ID"\
             --data "message_thread_id=$THREAD_ID" \
             --data "text=$MESSAGE"\
             --data "disable_web_page_preview=${{ inputs.disable_preview }}"\
